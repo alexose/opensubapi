@@ -1,6 +1,7 @@
 var http = require("http")
   , url = require("url")
   , fs = require("fs")
+  , qs = require("querystring")
   , SubAPI = require("./lib/api")
   , cache = require("memory-store");
 
@@ -11,9 +12,10 @@ http.createServer(function(request, response) {
   var arr = request.url.split('?');
 
   if (arr[1]){
-    var queries = querystring.parse(arr[1]);
+    var endpoint = arr[0].split('/').pop()
+      , queries = qs.parse(arr[1]);
 
-    new SubAPI(queries, finish);
+    new SubAPI(endpoint, queries, finish);
   } else {
     explain();
   }
@@ -24,15 +26,9 @@ http.createServer(function(request, response) {
 
   function finish(results){
 
-    var string = JSON.stringify(results)
-      , type = "text/plain";
+    var type = "text/json";
 
-    if (queries.callback){
-      type = "application/x-javascript"
-      string = queries.callback + '(' + string + ')';
-    }
-
-    respond(string, type);
+    respond(results, type);
   }
 
   function explain(){
