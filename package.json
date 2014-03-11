@@ -1,0 +1,10 @@
+{
+  "name": "opensubapi",
+  "description": "Experimental open version of subapi, for use with Popcorn Time",
+  "author": "Alexander Ose <alex@alexose.com>",
+  "engine": "node >= 0.10.17",
+  "repository" : "https://github.com/alexose/opensubapi"
+  "dependencies": {
+    "memory-store": "0.0.1"
+  }
+}
