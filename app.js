@@ -11,14 +11,10 @@ http.createServer(function(request, response) {
 
   var arr = request.url.split('?');
 
-  if (arr[1]){
-    var endpoint = arr[0].split('/').pop()
-      , queries = qs.parse(arr[1]);
+  var endpoint = arr[0].split('/').pop()
+    , queries = qs.parse(arr[1]);
 
-    new SubAPI(endpoint, queries, finish);
-  } else {
-    explain();
-  }
+  new SubAPI(endpoint, queries, finish);
 
   function error(string){
     respond(string, "text", 500);
